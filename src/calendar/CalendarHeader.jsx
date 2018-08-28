@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import toFragment from 'rc-util/lib/Children/mapSelf';
 import MonthPanel from '../month/MonthPanel';
+import QuarterPanel from '../quarter/QuarterPanel';
 import YearPanel from '../year/YearPanel';
 import DecadePanel from '../decade/DecadePanel';
 
@@ -33,6 +34,7 @@ const CalendarHeader = createReactClass({
     enablePrev: PropTypes.any,
     enableNext: PropTypes.any,
     disabledMonth: PropTypes.func,
+    disabledQuarter: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -56,6 +58,15 @@ const CalendarHeader = createReactClass({
     this.props.onPanelChange(value, 'date');
     if (this.props.onMonthSelect) {
       this.props.onMonthSelect(value);
+    } else {
+      this.props.onValueChange(value);
+    }
+  },
+
+  onQuarterSelect(value) {
+    this.props.onPanelChange(value, 'date');
+    if (this.props.onQuarterSelect) {
+      this.props.onQuarterSelect(value);
     } else {
       this.props.onValueChange(value);
     }
@@ -142,6 +153,7 @@ const CalendarHeader = createReactClass({
       enableNext,
       enablePrev,
       disabledMonth,
+      disabledQuarter,
     } = props;
 
     let panel = null;
@@ -156,6 +168,20 @@ const CalendarHeader = createReactClass({
           disabledDate={disabledMonth}
           cellRender={props.monthCellRender}
           contentRender={props.monthCellContentRender}
+        />
+      );
+    }
+    if (mode === 'quarter') {
+      panel = (
+        <QuarterPanel
+          locale={locale}
+          defaultValue={value}
+          rootPrefixCls={prefixCls}
+          onSelect={this.onQuarterSelect}
+          onYearPanelShow={() => this.showYearPanel('quarter')}
+          disabledDate={disabledQuarter}
+          cellRender={props.quarterCellRender}
+          contentRender={props.quarterCellContentRender}
         />
       );
     }

@@ -33,6 +33,10 @@ export function getMonthName(month) {
   return localeData[locale === 'zh-cn' ? 'months' : 'monthsShort'](month);
 }
 
+export function getQuarterName(quarter) {
+  return `Q${quarter.month() / 3 + 1}`;
+}
+
 export function syncTime(from, to) {
   if (!moment.isMoment(from) || !moment.isMoment(to)) return;
   to.hour(from.hour());

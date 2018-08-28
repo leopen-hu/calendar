@@ -23,7 +23,7 @@ const Calendar = createReactClass({
     defaultValue: PropTypes.object,
     value: PropTypes.object,
     selectedValue: PropTypes.object,
-    mode: PropTypes.oneOf(['time', 'date', 'month', 'year', 'decade']),
+    mode: PropTypes.oneOf(['time', 'date', 'month', 'year', 'decade', 'quarter']),
     locale: PropTypes.object,
     showDateInput: PropTypes.bool,
     showWeekNumber: PropTypes.bool,
